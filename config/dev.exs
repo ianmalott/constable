@@ -16,9 +16,7 @@ config :constable, Constable.Endpoint,
   ]
 
 config :constable, Constable.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  database: "constable_api_development",
-  hostname: "localhost"
+  url: System.get_env("DATABASE_URL")
 
 config :constable, Constable.Mailer,
   adapter: Bamboo.LocalAdapter
