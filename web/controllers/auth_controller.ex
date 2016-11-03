@@ -10,7 +10,6 @@ defmodule Constable.AuthController do
     UserInterest
   }
 
-  @permitted_email_domain Application.fetch_env!(:constable, :permitted_email_domain)
   @one_year_in_seconds 365 * 24 * 60 * 60
 
   def index(conn, %{"browser" => "true"}) do
@@ -34,7 +33,7 @@ defmodule Constable.AuthController do
     case find_or_insert_user(email, name) do
       nil ->
         conn
-        |> put_flash(:error, "You must sign up with a #{@permitted_email_domain} email address")
+        |> put_flash(:error, "You must sign up with a valid email address")
         |> redirect(external: "/")
       user ->
         conn
@@ -81,7 +80,7 @@ defmodule Constable.AuthController do
       nil ->
         conn
         |> put_status(403)
-        |> json(%{error: "must sign up with a #{@permitted_email_domain} email"})
+        |> json(%{error: "must sign up with a valid email"})
       user ->
         conn
         |> put_status(201)
