@@ -1,0 +1,19 @@
+balancers:
+  constable:
+    80/http: http://web:4000
+  database:
+    5432/tcp: tcp://database:5432
+services:
+  web:
+    build: .
+    environment:
+      - CLIENT_ID=foo
+      - CLIENT_SECRET=foo
+      - DATABASE_URL=postgresql://postgres:password@172.16.123.1:5432/app
+      - HUB_API_TOKEN=foo
+      - INBOUND_EMAIL_DOMAIN=foo
+      - MANDRILL_KEY=foo
+      - OUTBOUND_EMAIL_DOMAIN=foo
+      - SLACK_WEBHOOK_URL=foo
+  database:
+    image: convox/postgres
